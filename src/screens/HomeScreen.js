@@ -1,6 +1,8 @@
 import React from 'react'
 import {StyleSheet, View, Text, Button,
     Dimensions,TouchableOpacity,TextInput,FlatList} from 'react-native'
+import {connect} from 'react-redux'
+import * as actions from '../redux/actionCreator'
 
 class HomeScreen extends React.Component {
     constructor(props){
@@ -8,7 +10,6 @@ class HomeScreen extends React.Component {
         this.state = {
             show: false,
             text: '',
-            list: []
         }
     }
     
@@ -35,44 +36,32 @@ class HomeScreen extends React.Component {
                 <View style={styles.btn}>
                     <TouchableOpacity 
                         style={styles.btnText}
-                        onPress={()=>this.setState(
-                            {list: [ ...this.state.list, 
-                                {
-                                    id: String(Date.now() * Math.random()),
-                                    content: this.state.text,
-                                    done: false
-                                } 
-                            ]}
-                        )}
+                        onPress={()=>this.props.addTodo(this.state.text)}
                     >
                         <Text>Save</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         style={styles.btnText}
-                        onPress={()=>this.setState({show: false})}
+                        onPress={()=>console.log(this.props.data)}
                     >
                         <Text>Cannel</Text>
                     </TouchableOpacity>
                 </View>
             </View>}
 
-            {this.state.list &&
+            {this.props.data &&
             <View>
                 <FlatList
-                    data={this.state.list}
+                    data={this.props.data}
                     keyExtractor={list=>list.id}
                     renderItem={({item})=>{
                         return <View style={{flexDirection: 'row'}}>
                             <TouchableOpacity 
-                                onPress={()=>this.setState({
-                                    list: this.state.list.map(value=>{
-                                            if(value.id === item.id){
-                                                return {...value,done: true}
-                                            }
-                                            return value
-                                        })
-                                })}
+                                onPress={()=>{
+                                    this.props.isDone(item.id)
+                                    this.props.check()
+                                }}
                             >
                                 <Text>{item.content}</Text>
                             </TouchableOpacity>
@@ -112,4 +101,10 @@ const styles = StyleSheet.create({
     }
 })
 
-export default HomeScreen
+const mapStateToProps = (state)=>{
+    return {
+        data: state
+    }
+}
+
+export default connect(mapStateToProps,actions)(HomeScreen)
