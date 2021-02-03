@@ -13,3 +13,7 @@ export const check = ()=>({
     type: 'CHECKING'
 })
 
+export const fetch = ()=>({
+    type: 'FETCHING'
+})
+
