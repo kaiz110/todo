@@ -14,6 +14,7 @@ class HomeScreen extends React.Component {
         this.state = {
             show: false,
             text: '',
+            todoNumber: 0
         }
     }
 
@@ -24,7 +25,8 @@ class HomeScreen extends React.Component {
     render(){
         return <SafeAreaView style={styles.container}>
             <View style={styles.headerBar}>
-                <Text style={styles.todoText}> TODO </Text>
+                <Text style={{fontSize: 25}}>      </Text>
+                <Text style={{fontSize: 24}}> TODO </Text>
 
                 <TouchableOpacity onPress={()=>this.setState({show: true})}>
                     <Text style={{fontSize: 18,padding: 5}}>Add</Text>
@@ -75,11 +77,10 @@ class HomeScreen extends React.Component {
                                 value={item.done}
                                 onValueChange={()=>{
                                     this.props.isDone(item.id)
-                                    this.props.check()
+                                    this.props.check(this.props.data)
                                 }}
                             />
-
-                            <Text style={styles.contentText}>{item.content}</Text>
+                                <Text style={styles.contentText}>{item.content}</Text>
                         </View>
                     }}
                 />
@@ -102,13 +103,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#03c2fc',
         padding: 10,
         alignItems: 'center',
-        justifyContent: 'flex-end',
+        justifyContent: 'space-between',
         flexDirection: 'row'
-    },
-    todoText:{
-        position: 'absolute',
-        fontSize: 24,
-        left: Dimensions.get('screen').width/2-33,
     },
     //
     addBox: {

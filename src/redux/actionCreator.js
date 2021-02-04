@@ -9,8 +9,9 @@ export const isDone = id => ({
     payload: id
 })
 
-export const check = ()=>({
-    type: 'CHECKING'
+export const check = (data)=>({
+    type: 'CHECKING',
+    payload: data
 })
 
 export const fetch = ()=>({
