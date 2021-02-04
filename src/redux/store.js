@@ -1,38 +1,38 @@
 import {createStore} from 'redux';
-import AsyncStorage from '@react-native-async-storage/async-storage'
+//import AsyncStorage from '@react-native-async-storage/async-storage'
 
 //value = object
-const setValue = async (key,value) => {
-    try{
-        const jsonValue = JSON.stringify(value)
-        await AsyncStorage.setItem(key,value)
-    }catch(e){}
-}
+// const setValue = async (key,value) => {
+//     try{
+//         const jsonValue = JSON.stringify(value)
+//         await AsyncStorage.setItem(key,value)
+//     }catch(e){}
+// }
 
-const getValue = async (key) => {
-    try{
-        const value = await AsyncStorage.getItem(key)
-        return value != null ? JSON.parse(value) : null
-    }catch(e){}
-}
+// const getValue = async (key) => {
+//     try{
+//         const value = await AsyncStorage.getItem(key)
+//         return value != null ? JSON.parse(value) : null
+//     }catch(e){}
+// }
 
-const removeValue = async (key) => {
-    try{
-        await AsyncStorage.removeItem(key)
-    }catch(e){}
-}
-const fetch = async () => {
-    await AsyncStorage.clear()
-    const keys = await AsyncStorage.getAllKeys()
-    const values = await AsyncStorage.multiGet(keys)
+// const removeValue = async (key) => {
+//     try{
+//         await AsyncStorage.removeItem(key)
+//     }catch(e){}
+// }
+// const fetch = async () => {
+//     await AsyncStorage.clear()
+//     const keys = await AsyncStorage.getAllKeys()
+//     const values = await AsyncStorage.multiGet(keys)
 
-    const data = []
-    for(let i = 0 ; i < values.length ; i++){
-        data.push(values[i][1])
-    }
-    console.log(data)
-    return data
-}
+//     const data = []
+//     for(let i = 0 ; i < values.length ; i++){
+//         data.push(values[i][1])
+//     }
+//     console.log(data)
+//     return data
+// }
 
 
 //REDUCER
